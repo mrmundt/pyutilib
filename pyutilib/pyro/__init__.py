@@ -16,7 +16,6 @@ from pyutilib.pyro.util import get_nameserver, get_dispatchers, shutdown_pyro_co
 from pyutilib.pyro.task import Task, TaskProcessingError
 from pyutilib.pyro.client import Client
 from pyutilib.pyro.worker import TaskWorker, MultiTaskWorker, TaskWorkerServer
-from pyutilib.pyro.dispatcher import Dispatcher, DispatcherServer
 from pyutilib.pyro.nameserver import start_ns, start_nsc
 
 #
