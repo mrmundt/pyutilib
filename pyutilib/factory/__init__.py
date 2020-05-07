@@ -8,5 +8,5 @@
 #  _________________________________________________________________________
 #
 
-from pyutilib.factory.executable import register_executable, registered_executable, unregister_executable
+
 from pyutilib.factory.factory import Factory, CachedFactory
