@@ -15,9 +15,7 @@ from . import core
 core.PluginGlobals.add_env("pca")
 
 from . import config
-from . import executables
-from . import loader
-from . import app
+
 
 #
 # Remove the "pca" environment as the default
