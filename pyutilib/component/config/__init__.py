@@ -15,6 +15,8 @@ configuration files, controlling logging, and specifying component options.
 from pyutilib.component.core import PluginGlobals
 PluginGlobals.add_env("pca")
 
+from pyutilib.component.config.options import ExecutableOption, declare_option, Option
+from pyutilib.component.config.managed_plugin import ManagedPlugin, ManagedSingletonPlugin
 from pyutilib.component.config.tempfiles import ITempfileManager, TempfileManagerPlugin, TempfileManager
 
 PluginGlobals.pop_env()
