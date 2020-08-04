@@ -13,8 +13,7 @@
 __all__ = ['ImportLoader']
 
 from glob import glob
-import imp
-import re
+from importlib.machinery import SourceFileLoader
 import os
 import sys
 import logging
@@ -53,7 +52,8 @@ class ImportLoader(ManagedSingletonPlugin):
                 if plugin_name not in sys.modules and name_re.match(
                         plugin_name):
                     try:
-                        module = imp.load_source(plugin_name, plugin_file)
+                        module = SourceFileLoader(plugin_name,
+                                                  plugin_file).load_module()
                         if generate_debug_messages:
                             env.log.debug('Loading file plugin %s from %s' % \
                                   (plugin_name, plugin_file))

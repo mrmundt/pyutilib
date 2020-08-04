@@ -3,7 +3,7 @@ name: GitHub CI
 on:
   push:
     branches:
-      - master
+      - issue-111
   pull_request:
     branches:
       - master
