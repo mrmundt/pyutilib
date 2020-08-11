@@ -13,13 +13,23 @@
 __all__ = ['ImportLoader']
 
 from glob import glob
-from importlib.machinery import SourceFileLoader
 import os
 import sys
 import logging
 
 from pyutilib.component.config import ManagedSingletonPlugin
-from pyutilib.component.core import implements, ExtensionPoint, IIgnorePluginWhenLoading, IPluginLoader, Plugin
+from pyutilib.component.core import (implements,
+                                     ExtensionPoint,
+                                     IIgnorePluginWhenLoading,
+                                     IPluginLoader,
+                                     Plugin)
+
+try:
+    from importlib.machinery import SourceFileLoader as load_source
+    notPy27 = True
+except ImportError:
+    from imp import load_source
+    notPy27 = False
 
 
 class ImportLoader(ManagedSingletonPlugin):
@@ -43,7 +53,7 @@ class ImportLoader(ManagedSingletonPlugin):
             # files are loaded
             #
             for plugin_file in sorted(plugin_files):
-                #print("ImportLoader:",plugin_file)
+                # print("ImportLoader:",plugin_file)
                 #
                 # Load the module
                 #
@@ -52,8 +62,12 @@ class ImportLoader(ManagedSingletonPlugin):
                 if plugin_name not in sys.modules and name_re.match(
                         plugin_name):
                     try:
-                        module = SourceFileLoader(plugin_name,
-                                                  plugin_file).load_module()
+                        if notPy27:
+                            module = load_source(plugin_name,
+                                                 plugin_file).load_module()
+                        else:
+                            module = load_source(plugin_name, plugin_file)
+
                         if generate_debug_messages:
                             env.log.debug('Loading file plugin %s from %s' % \
                                   (plugin_name, plugin_file))
